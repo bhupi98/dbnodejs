@@ -1,9 +1,7 @@
 require('dotenv').config()
+const {runQuery}=require('./config/db')
 const express=require('express');
+const user=require('./routes/router')
 const app = express();
-const {runQuery} = require('./db')
-app.get("/getusers", async (req,res)=>{
-    const executeQuery = await runQuery(`select * from user`,[])
-    res.json(executeQuery)
-})
+app.use("/api",user)
 app.listen(process.env.SERVER_PORT,()=>console.log('listening on port'+process.env.SERVER_PORT))
